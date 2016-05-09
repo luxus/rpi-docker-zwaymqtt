@@ -1,15 +1,5 @@
 FROM resin/rpi-raspbian
-MAINTAINER kl82@me.com
-ENV  \
-TOPIC_ROOT=zway \
-MQTT_SERVER=localhost \
-MQTT_USER=zway \
-MQTT_PASS=zway \
-ZWAY_PASS=password \
-ZWAY_USER=zway \
-ZWAY_SERVER=localhost \
-REFRESH=3
-ADD start.sh /start
-RUN chmod 777 /start
-ADD zwaymqtt /bin/
-ENTRYPOINT [ "/start" ]
+MAINTAINER Kai Löhnert <kl82@me.com>
+ADD https://drone.io/github.com/cblomart/zwaymqtt/files/zwaymqtt_linux_arm5.gz /
+RUN gzip -d zwaymqtt_linux_arm5.gz && chmod +x zwaymqtt_linux_arm5
+CMD ["/zwaymqtt_linux_arm5"]
